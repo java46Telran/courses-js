@@ -1,7 +1,9 @@
 import courseData from './config/courseData.json'
-import { getRandomDate, getRandomNumber } from './utils/random';
+import College from './services/college';
+import Courses from './services/courses';
+import FormHandler from './ui/form_handler';
 import { getRandomCourse } from './utils/randomCourse';
-const N_COURSES = 100;
+const N_COURSES = 5;
 function createCourses() {
     const courses = [];
     for (let i = 0; i < N_COURSES; i++) {
@@ -14,5 +16,17 @@ function getCourseItems(courses) {
 }
 //TODO rendering inside <ul>
 const ulElem = document.getElementById("courses");
-ulElem.innerHTML = `${getCourseItems(createCourses())}`
+const courses = createCourses();
+ulElem.innerHTML = `${getCourseItems(courses)}`
+const dataProvider = new Courses(courses);
+const dataProcessor = new College(dataProvider, courseData);
+const formHandler = new FormHandler("courses-form", "alert");
+formHandler.addHandler(course => {
+    const message = dataProcessor.addCourse(course);
+    if (!message) {
+         course.id=1000000
+    ulElem.innerHTML += `<li>${JSON.stringify(course)}</li>`;
+    }
+   
+})
 
