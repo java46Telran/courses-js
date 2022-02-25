@@ -18,15 +18,17 @@ function getCourseItems(courses) {
 const ulElem = document.getElementById("courses");
 const courses = createCourses();
 ulElem.innerHTML = `${getCourseItems(courses)}`
-const dataProvider = new Courses(courses);
+const dataProvider = new Courses(courseData.minId, courseData.maxId,courses);
 const dataProcessor = new College(dataProvider, courseData);
 const formHandler = new FormHandler("courses-form", "alert");
 formHandler.addHandler(course => {
-    const message = dataProcessor.addCourse(course);
-    if (!message) {
-         course.id=1000000
+    const res = dataProcessor.addCourse(course);
+    if (typeof(res)!=='string') {
+        
     ulElem.innerHTML += `<li>${JSON.stringify(course)}</li>`;
+    return '';
     }
+    return res;
    
 })
 
