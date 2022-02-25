@@ -13,7 +13,7 @@ export default class College {
         //if course is valid
         const validationMessage = this.#getValidationMessage(course);
         if(!validationMessage) {
-            this.#courses.add(course);
+           return this.#courses.add(course);
         } 
         return validationMessage;
     }
