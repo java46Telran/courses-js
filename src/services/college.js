@@ -37,4 +37,7 @@ export default class College {
           `wrong opening date - year should be in range [${minYear} - ${maxYear}]` : ''
          return message;
     }
+    getAllCourses() {
+        return this.#courses.get()
+    }
 }
