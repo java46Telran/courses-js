@@ -1,10 +1,12 @@
 export default class TableHandler {
     #tableElem
     #columnsDefinition
-    constructor(columnsDefinition, idTable) {
+    #sortFnName
+    constructor(columnsDefinition, idTable, sortFnName) {
         //example of columnsDefinition:
         // const columns = [{'key': 'name', 'displayName':'Course Name'},
         // {'key': 'lecturer', 'displayName': 'Lecturer Name'}... ]
+        this.#sortFnName = sortFnName ?? '';
         this.#columnsDefinition = columnsDefinition;
         this.#tableElem = document.getElementById(idTable);
         if (!this.#tableElem) {
@@ -23,7 +25,10 @@ export default class TableHandler {
         return `<thead><tr>${this.#getColumns()}</tr></thead>`
     }
     #getColumns() {
-        return this.#columnsDefinition.map(c => `<th>${c.displayName}</th>`).join('');
+        return this.#columnsDefinition.map(c => `<th onclick="${this.#getSortFn(c)}">${c.displayName}</th>`).join('');
+    }
+    #getSortFn(columnDefinition) {
+        return this.#sortFnName ? `${this.#sortFnName}('${columnDefinition.key}')` : ''
     }
     #getBody(objects) {
         return objects.map(o => `<tr>${this.#getRecord(o)}</tr>`).join('');
