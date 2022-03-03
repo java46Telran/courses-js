@@ -30,7 +30,7 @@ export default class FormHandler {
         })
     }
     fillOptions(idOptions, options ) {
-        document.getElementById(idOptions).innerHTML = 
+        document.getElementById(idOptions).innerHTML += 
         `${getOptions(options)}`
     }
     show() {
