@@ -45,4 +45,29 @@ export default class College {
     sortCourses(key) {
         return _.sortBy(this.getAllCourses(), key)
     }
+    #getStatistics(interval, field) {
+        const courses = this.getAllCourses();
+        const objStat =  _.countBy(courses, e => {   
+            return Math.floor(e[field]/interval);
+         });
+         return Object.keys(objStat).map(s => {
+             return {minInterval: s * interval,
+                 maxInterval: s * interval + interval -1,
+                amount: objStat[s]}
+         })
+    }
+     getHoursStatistics(lengthInterval){
+        return this.#getStatistics(lengthInterval, 'hours');
+    }
+    getCostStatistics(lengthInterval) {
+        return this.#getStatistics(lengthInterval, 'cost')
+    }
+    removeCourse(id) {
+        if (!this.#courses.exists(id)) {
+            throw `course with id ${id} not found`
+        }
+        return this.#courses.remove(id);
+    }
+
+   
 }
