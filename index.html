@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Document</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <title>Document</title>
 </head>
 
 <body>
@@ -17,11 +18,20 @@
     <div id="alert">
 
     </div>
-    <button onclick="showForm()">Add Course</button>
-    <button onclick="showCourses()">Show Courses</button>
-    <button onclick="showHoursStatistics()">Show Hours Statistics</button>
-    <button onclick="showCostStatistics()">Show Cost Statistics</button>
+   
+    <button id="0" onclick="showForm()">Add Course</button>
+    <button id="1" onclick="showCourses()">Show Courses</button>
+    <button id="2" onclick="showHoursStatistics()">Show Hours Statistics</button>
+    <button id="3" onclick="showCostStatistics()">Show Cost Statistics</button>
+    <button id="4" onclick="showGeneration()">Show Generate Courses</button>
     <div id="alert"></div>
+    <form id="generation-form" class="mt-5 mt-lg-5 mt-sm-2" hidden>
+        <div class="container mt-4">
+            <label class="form-label" for="nCourses">Enter amount of courses</label>
+            <input type="number" value="10" class="form-control"  name="nCourses" required>
+            <button class="btn btn-primary mt-3" type="submit">Generate</button>
+        </div>
+    </form>
     <form id="courses-form" class="mt-5 mt-lg-5 mt-sm-2" hidden>
         <div class="container">
             <div class="row justify-content-center mt-lg-4 mt-sm-0">
