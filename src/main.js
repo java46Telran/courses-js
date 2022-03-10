@@ -26,8 +26,8 @@ const tableHandler = new TableHandler([
 const formHandler = new FormHandler("courses-form", "alert");
 const generationHandler = new FormHandler("generation-form", "alert");
 const navigator = new NavigatorButtons(["0","1","2", "3", "4"])
-formHandler.addHandler(course => {
-    const res = dataProcessor.addCourse(course);
+formHandler.addHandler(async course => {
+    const res = await dataProcessor.addCourse(course);
     if (typeof (res) !== 'string') {
         return '';
     }
@@ -65,10 +65,10 @@ window.showForm = () => {
     formHandler.show();
 
 }
-window.showCourses = () => {
+window.showCourses = async () => {
     hide();
     navigator.setActive(1);
-    tableHandler.showTable(dataProcessor.getAllCourses());
+    tableHandler.showTable(await dataProcessor.getAllCourses());
 
 }
 window.showHoursStatistics = () => {
