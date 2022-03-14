@@ -1,6 +1,6 @@
 import courseData from './config/courseData.json'
 import College from './services/college';
-import Courses from './services/courses';
+import { dataProvider } from './config/services-config';
 import FormHandler from './ui/form_handler';
 import TableHandler from './ui/table_handler';
 import { getRandomCourse } from './utils/randomCourse';
@@ -14,7 +14,7 @@ const statisticsColumnDefinition = [
 ]
 
 
-const dataProvider = new Courses(courseData.minId, courseData.maxId);
+
 const dataProcessor = new College(dataProvider, courseData);
 const tableHandler = new TableHandler([
     { key: 'id', displayName: 'ID' },

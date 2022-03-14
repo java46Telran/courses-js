@@ -63,7 +63,7 @@ export default class College {
         return this.#getStatistics(lengthInterval, 'cost')
     }
     async removeCourse(id) {
-        if (!this.#courses.exists(id)) {
+        if (!await this.#courses.exists(id)) {
             throw `course with id ${id} not found`
         }
         return await this.#courses.remove(id);

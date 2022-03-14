@@ -33,7 +33,7 @@ export default class Courses {
         return id;
     }
     exists(id) {
-        return !!this.#courses.find(c => c.id === id);
+        return getPromise(100, !!this.#courses.find(c => c.id === id));
     }
     get() {
         return getPromise(2000, this.#courses);
