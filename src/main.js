@@ -38,7 +38,8 @@ async function asyncRequestWithSpinner(asyncFn) {
          res = await asyncFn();
     } catch (err) {
         hide();
-        alertServerUnavailable.showAlert(`${err} server ${URL} is unavailable, repeat request later on`, 'danger')
+        alertServerUnavailable.showAlert
+        (`${err} server ${URL} is unavailable, repeat request later on`, 'danger')
     }
     spinner.stop();
     return res;
