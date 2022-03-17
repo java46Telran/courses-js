@@ -1,12 +1,13 @@
 import courseData from './config/courseData.json'
 import College from './services/college';
-import { dataProvider } from './config/services-config';
+import { dataProvider, URL } from './config/services-config';
 import FormHandler from './ui/form_handler';
 import TableHandler from './ui/table_handler';
 import { getRandomCourse } from './utils/randomCourse';
 import _ from 'lodash'
 import NavigatorButtons from './ui/navigator_buttons';
 import Spinner from './ui/spinner';
+import Alert from './ui/alert';
 const statisticsColumnDefinition = [
     { key: "minInterval", displayName: "From" },
     { key: "maxInterval", displayName: "To" },
@@ -21,15 +22,24 @@ const tableHandler = new TableHandler([
     { key: 'name', displayName: 'Course' },
     { key: 'lecturer', displayName: 'Lecturer' },
     { key: 'cost', displayName: "Cost (ILS)" },
-    { key: 'hours', displayName: "Duration (h)" }
+    { key: 'hours', displayName: "Duration (h)" },
+    {key: 'openingDate', displayName: "Date"}
 ], "courses-table", "sortCourses", "removeCourse");
 const formHandler = new FormHandler("courses-form", "alert");
 const generationHandler = new FormHandler("generation-form", "alert");
 const navigator = new NavigatorButtons(["0","1","2", "3", "4"]);
 const spinner = new Spinner("spinner");
+const alertServerUnavailable = new Alert("server-unavailable")
 async function asyncRequestWithSpinner(asyncFn) {
     spinner.start();
-    const res = await asyncFn();
+    alertServerUnavailable.hideAlert();
+    let res;
+    try {
+         res = await asyncFn();
+    } catch (err) {
+        hide();
+        alertServerUnavailable.showAlert(`${err} server ${URL} is unavailable, repeat request later on`, 'danger')
+    }
     spinner.stop();
     return res;
 }
@@ -100,7 +110,7 @@ window.sortCourses = async (key) => {
 }
 window.removeCourse = async (id) => {
     if (window.confirm(`you are going to remove course id: ${id}`)) {
-        await dataProcessor.removeCourse(+id);
+        await asyncRequestWithSpinner (dataProcessor.removeCourse.bind(dataProcessor, +id));
         tableHandler.showTable(await asyncRequestWithSpinner(dataProcessor.getAllCourses.bind(dataProcessor)));
     }
 

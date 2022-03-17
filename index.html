@@ -25,6 +25,7 @@
     <button id="3" onclick="showCostStatistics()">Show Cost Statistics</button>
     <button id="4" onclick="showGeneration()">Show Generate Courses</button>
     <div id="alert"></div>
+    <div id="server-unavailable"></div>
     <form id="generation-form" class="mt-5 mt-lg-5 mt-sm-2" hidden>
         <div class="container mt-4">
             <label class="form-label" for="nCourses">Enter amount of courses</label>
@@ -62,7 +63,7 @@
             </div>
             <div class="offset-sm-4 col-sm-4 mt-sm-0 mt-5 mt-lg-4">
                 <label class="form-label" for="date">Open Date</label>
-                <input type="date" class="form-control" id="date" name="openDate" required>
+                <input type="date" class="form-control" id="date" name="openingDate" required>
             </div>
             <div class="row justify-content-evenly mt-5 mt-sm-4 mt-lg-5">
                 <button class="col-4 btn btn-outline-primary " type="submit">Submit</button>

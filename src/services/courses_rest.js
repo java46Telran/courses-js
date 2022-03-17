@@ -15,7 +15,8 @@ export default class CoursesRest {
     }
     async get() {
         const response = await fetch(this.#url);
-        return await response.json();
+        const courses =  await response.json();
+        return courses.map(c =>( {...c, openingDate: c.openingDate.substring(0, 10)}))
     }
     async remove(id) {
         const res = this.getCourse(id);
